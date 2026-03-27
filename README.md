@@ -22,3 +22,7 @@ Simule todos os jogos da Copa do Mundo 2026 — da fase de grupos até a grande 
 - [Vite](https://vitejs.dev/) — bundler e dev server
 - [Tailwind CSS](https://tailwindcss.com/) — estilização
 - [flagcdn.com](https://flagcdn.com/) — bandeiras dos países
+
+## Teste o app:
+
+https://artbecker.github.io/project_world_cup_simulator/

@@ -85,7 +85,7 @@ export default function App() {
       <header className='bg-[#001040]/80 backdrop-blur-md border-b border-white/10'>
         <div className='max-w-6xl mx-auto px-4'>
           <div className='py-3 flex items-center gap-3 justify-center'>
-            <img className='size-12' src='../public/favicon.png' />
+            <span className='text-3xl'>⚽</span>
             <h1 className='text-white font-bold text-xl leading-none uppercase break'>
               Simulador copa do mundo 2026
             </h1>
