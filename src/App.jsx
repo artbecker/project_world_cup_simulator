@@ -32,7 +32,7 @@ const TABS = {
 
 export default function App() {
   const [scores, setScores] = useState(buildInitialScores);
-  const [knockoutPicks, setKnockoutPicks] = useState({});
+  const [knockoutScores, setKnockoutScores] = useState({});
   // knockoutPicks: { "r32_1": "BRA", "r16_1": "GER", ... }
   // Cada chave é o id do jogo, cada valor é o teamId do vencedor
 
@@ -48,16 +48,15 @@ export default function App() {
 
   // Atualiza o vencedor de um jogo do mata-mata
   // Se clicar no mesmo time duas vezes, desfaz a escolha (toggle)
-  const handleKnockoutPick = (matchId, teamId) => {
-    setKnockoutPicks((prev) => ({
+  const handleKnockoutPick = (matchId, scoreA, scoreB) => {
+    setKnockoutScores((prev) => ({
       ...prev,
-      // Se o time já era o vencedor, remove (null). Senão, define.
-      [matchId]: prev[matchId] === teamId ? null : teamId,
+      [matchId]: { scoreA, scoreB },
     }));
   };
 
   // Monta o bracket completo com os dados atuais
-  const bracket = buildBracket(scores, knockoutPicks);
+  const bracket = buildBracket(scores, knockoutScores);
 
   return (
     <div
@@ -68,7 +67,7 @@ export default function App() {
       }}
     >
       {/* ── CABEÇALHO ── */}
-      <header className='sticky top-0 z-10 bg-[#001040]/80 backdrop-blur-md border-b border-white/10'>
+      <header className='bg-[#001040]/80 backdrop-blur-md border-b border-white/10'>
         <div className='max-w-6xl mx-auto px-4'>
           <div className='flex items-center justify-between py-3'>
             <div className='flex items-center gap-3'>
@@ -140,7 +139,7 @@ export default function App() {
           <BracketView
             bracket={bracket}
             onPick={handleKnockoutPick}
-            knockoutPicks={knockoutPicks}
+            knockoutScores={knockoutScores}
           />
         )}
       </main>

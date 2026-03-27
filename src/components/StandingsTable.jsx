@@ -16,9 +16,9 @@ import FlagImage from './FlagImage';
 // 1° e 2° lugar avançam direto — 3° lugar pode avançar como
 // um dos 8 melhores terceiros (indicamos com cor diferente)
 const POSITION_STYLES = {
-  0: 'bg-emerald-500/20 border-l-2 border-emerald-400', // 1° — classificado
-  1: 'bg-emerald-500/20 border-l-2 border-emerald-400', // 2° — classificado
-  2: 'bg-yellow-500/10 border-l-2 border-yellow-400', // 3° — possível classificado
+  0: 'bg-emerald-500/20', // 1° — classificado
+  1: 'bg-emerald-500/20', // 2° — classificado
+  2: 'bg-yellow-500/10', // 3° — possível classificado
   3: 'bg-transparent', // 4° — eliminado
 };
 
@@ -117,11 +117,11 @@ export default function StandingsTable({ standings }) {
       {/* ── LEGENDA ── */}
       <div className='flex gap-4 mt-3 px-3'>
         <div className='flex items-center gap-1'>
-          <div className='w-2 h-2 rounded-full bg-emerald-400' />
+          <div className='w-2 h-2 rounded-full bg-emerald-400/20' />
           <span className='text-white/40 text-xs'>Classificado</span>
         </div>
         <div className='flex items-center gap-1'>
-          <div className='w-2 h-2 rounded-full bg-yellow-400' />
+          <div className='w-2 h-2 rounded-full bg-yellow-400/10' />
           <span className='text-white/40 text-xs'>Possível classificado</span>
         </div>
       </div>

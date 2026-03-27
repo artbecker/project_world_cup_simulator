@@ -16,7 +16,19 @@ export default function FlagImage({ team, size = 24 }) {
   // Se o time não tem ISO definido, mostra emoji de fallback
   // Isso cobre os play-offs que ainda não têm país definido
   if (!team?.iso) {
-    return <span style={{ fontSize: size * 0.8 }}>🏳️</span>;
+    return (
+      <div
+        style={{
+          width: size * 1.4,
+          height: size,
+          objectFit: 'cover',
+          borderRadius: 3,
+          flexShrink: 0,
+          backgroundColor: 'rgba(255,255,255)',
+          display: 'inline-block',
+        }}
+      />
+    );
   }
 
   return (
@@ -35,7 +47,7 @@ export default function FlagImage({ team, size = 24 }) {
         objectFit: 'cover',
         borderRadius: 3,
         display: 'inline-block',
-        flexShrink: 0, // não encolhe em containers flex
+        flexShrink: 0, // não encolhe em containers
       }}
       // onError: se a imagem falhar (ex: iso inválido),
       // esconde a imagem quebrada e mostra o emoji como fallback
