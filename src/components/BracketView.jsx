@@ -270,7 +270,7 @@ export default function BracketView({ bracket, onPick, knockoutScores }) {
 
         {/* Jogos */}
         <div
-          className={`grid gap-3 ${currentPhaseMatches.length <= 2 ? 'grid-cols-1 mx-auto max-w-1/2' : 'grid-cols-1 md:grid-cols-2'}`}
+          className={`grid gap-3 ${currentPhaseMatches.length <= 2 ? 'grid-cols-1 mx-auto max-w-140' : 'grid-cols-1 md:grid-cols-2'}`}
         >
           {pageMatches.map((match) => {
             const isLocked = !match.teamA || !match.teamB;
