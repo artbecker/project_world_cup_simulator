@@ -1,1 +1,6 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap');
+
+@theme {
+  --font-cal-sans: 'Cal Sans', sans-serif;
+}

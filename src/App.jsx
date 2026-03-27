@@ -82,25 +82,26 @@ export default function App() {
       }}
     >
       {/* ── CABEÇALHO ── */}
-      <header className='bg-[#001040]/80 backdrop-blur-md border-b border-white/10'>
+      <header className='bg-[#001040]/80 backdrop-blur-md'>
         <div className='max-w-6xl mx-auto px-4'>
-          <div className='py-3 flex items-center gap-3 justify-center'>
-            <span className='text-3xl'>⚽</span>
-            <h1 className='text-white font-bold text-xl leading-none uppercase break'>
-              Simulador copa do mundo 2026
+          <div className='pt-5 pb-5 py-3 flex items-center gap-3 justify-center'>
+            <h1 className='text-white font-cal-sans text-center text-[24px] sm:text-[36px] lg:text-[48px] leading-none uppercase break'>
+              Simulador Copa do Mundo 2026
             </h1>
           </div>
 
           {/* ── ABAS ── */}
-          <div className='flex gap-1 pb-0 justify-center'>
-            {[
-              { id: TABS.GROUPS, label: 'Fase de Grupos' },
-              { id: TABS.BRACKET, label: 'Mata-Mata' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`
+        </div>
+      </header>
+      <div className='flex gap-1 pb-0 justify-center sticky top-0 z-10 bg-[#001040]/80 backdrop-blur-md border-b border-white/10'>
+        {[
+          { id: TABS.GROUPS, label: 'Fase de Grupos' },
+          { id: TABS.BRACKET, label: 'Mata-Mata' },
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`
                   px-4 py-2 text-sm font-semibold rounded-t-lg
                   transition-all duration-200
                   ${
@@ -109,13 +110,11 @@ export default function App() {
                       : 'text-white/40 hover:text-white/70'
                   }
                 `}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </header>
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
 
       {/* ── CONTEÚDO ── */}
       <main className='max-w-6xl mx-auto px-4 py-6'>
