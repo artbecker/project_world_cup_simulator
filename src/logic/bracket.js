@@ -51,7 +51,9 @@ export const getWinner = (match, knockoutPicks) => {
   if (!pick || pick.scoreA == null || pick.scoreB == null) return null;
   if (pick.scoreA > pick.scoreB) return match.teamA;
   if (pick.scoreB > pick.scoreA) return match.teamB;
-  return null; // empate = sem vencedor definido
+  // Empate — decide nos pênaltis
+  if (pick.penaltyWinner) return pick.penaltyWinner;
+  return null;
 };
 
 // =============================================================

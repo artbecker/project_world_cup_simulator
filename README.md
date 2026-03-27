@@ -1,16 +1,24 @@
-# React + Vite
+# ⚽ Simulador Copa do Mundo 2026
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Simule todos os jogos da Copa do Mundo 2026 — da fase de grupos até a grande final.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Funcionalidades
 
-## React Compiler
+- **Fase de Grupos** — preencha os placares dos 72 jogos e veja a classificação atualizar em tempo real, com critérios de desempate oficiais da FIFA
+- **Mata-Mata completo** — Round of 32, Oitavas, Quartas, Semifinal e Final
+- **Pênaltis** — em caso de empate no mata-mata, decida o vencedor nos pênaltis
+- **Disputa de 3º lugar** — jogo entre os perdedores das semifinais
+- **Bracket visual** — visualização do chaveamento com bolinhas, inspirado no modelo do GE
+- **Persistência** — os placares são salvos automaticamente no navegador via localStorage
+- **Responsivo** — funciona em desktop, tablet e mobile
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologias
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- [React 18](https://react.dev/) — interface e gerenciamento de estado
+- [Vite](https://vitejs.dev/) — bundler e dev server
+- [Tailwind CSS](https://tailwindcss.com/) — estilização
+- [flagcdn.com](https://flagcdn.com/) — bandeiras dos países

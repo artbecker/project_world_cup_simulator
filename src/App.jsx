@@ -1,16 +1,11 @@
 // =============================================================
 // src/App.jsx — atualizado com knockoutPicks
 // =============================================================
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GROUP_LETTERS } from './data/teams';
 import { getMatchesByGroup } from './data/matches';
 import { calcGroupStandings } from './logic/standings';
-import {
-  buildBracket,
-  ROUNDS,
-  ROUND_LABELS,
-  ROUND_ORDER,
-} from './logic/bracket';
+import { buildBracket } from './logic/bracket';
 import GroupSection from './components/GroupSection';
 import BracketView from './components/BracketView';
 
@@ -31,13 +26,28 @@ const TABS = {
 };
 
 export default function App() {
-  const [scores, setScores] = useState(buildInitialScores);
-  const [knockoutScores, setKnockoutScores] = useState({});
+  const [scores, setScores] = useState(() => {
+    const saved = localStorage.getItem('scores');
+    return saved ? JSON.parse(saved) : buildInitialScores();
+  });
+
+  const [knockoutScores, setKnockoutScores] = useState(() => {
+    const saved = localStorage.getItem('knockoutScores');
+    return saved ? JSON.parse(saved) : {};
+  });
   // knockoutPicks: { "r32_1": "BRA", "r16_1": "GER", ... }
   // Cada chave é o id do jogo, cada valor é o teamId do vencedor
 
   // Aba ativa: grupos ou bracket
   const [activeTab, setActiveTab] = useState(TABS.GROUPS);
+
+  useEffect(() => {
+    localStorage.setItem('scores', JSON.stringify(scores));
+  }, [scores]);
+
+  useEffect(() => {
+    localStorage.setItem('knockoutScores', JSON.stringify(knockoutScores));
+  }, [knockoutScores]);
 
   const handleScoreChange = (matchId, scoreA, scoreB) => {
     setScores((prev) => ({
@@ -48,10 +58,15 @@ export default function App() {
 
   // Atualiza o vencedor de um jogo do mata-mata
   // Se clicar no mesmo time duas vezes, desfaz a escolha (toggle)
-  const handleKnockoutPick = (matchId, scoreA, scoreB) => {
+  const handleKnockoutPick = (
+    matchId,
+    scoreA,
+    scoreB,
+    penaltyWinner = null,
+  ) => {
     setKnockoutScores((prev) => ({
       ...prev,
-      [matchId]: { scoreA, scoreB },
+      [matchId]: { scoreA, scoreB, penaltyWinner },
     }));
   };
 
@@ -69,22 +84,15 @@ export default function App() {
       {/* ── CABEÇALHO ── */}
       <header className='bg-[#001040]/80 backdrop-blur-md border-b border-white/10'>
         <div className='max-w-6xl mx-auto px-4'>
-          <div className='flex items-center justify-between py-3'>
-            <div className='flex items-center gap-3'>
-              <span className='text-3xl'>⚽</span>
-              <div>
-                <h1 className='text-white font-bold text-xl leading-none'>
-                  Simulador
-                </h1>
-                <p className='text-yellow-400 text-xs font-semibold tracking-widest uppercase'>
-                  Copa do Mundo 2026
-                </p>
-              </div>
-            </div>
+          <div className='py-3 flex items-center gap-3 justify-center'>
+            <img className='size-12' src='../public/favicon.png' />
+            <h1 className='text-white font-bold text-xl leading-none uppercase break'>
+              Simulador copa do mundo 2026
+            </h1>
           </div>
 
           {/* ── ABAS ── */}
-          <div className='flex gap-1 pb-0'>
+          <div className='flex gap-1 pb-0 justify-center'>
             {[
               { id: TABS.GROUPS, label: 'Fase de Grupos' },
               { id: TABS.BRACKET, label: 'Mata-Mata' },
@@ -143,6 +151,11 @@ export default function App() {
           />
         )}
       </main>
+      <footer>
+        <p className='text-white/25 text-xs text-center pb-6'>
+          © 2026 ArtBecker
+        </p>
+      </footer>
     </div>
   );
 }
