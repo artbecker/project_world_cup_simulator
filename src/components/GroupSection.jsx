@@ -13,6 +13,7 @@
 // =============================================================
 
 import { useState } from 'react';
+import { useSwipe } from '../hooks/useSwipe';
 import { GROUPS } from '../data/teams';
 import { getMatchesByRound } from '../data/matches';
 import MatchInput from './MatchInput';
@@ -39,6 +40,11 @@ export default function GroupSection({
 
   // Nome do grupo para exibir no cabeçalho
   const groupName = GROUPS[groupLetter].name;
+
+  const { handleTouchStart, handleTouchEnd } = useSwipe(
+    () => setActiveRound((r) => Math.min(TOTAL_ROUNDS, r + 1)), // swipe esquerda → próxima rodada
+    () => setActiveRound((r) => Math.max(1, r - 1)), // swipe direita → rodada anterior
+  );
 
   return (
     // Container principal do grupo — glass card
@@ -132,7 +138,11 @@ export default function GroupSection({
           </div>
 
           {/* Lista de jogos da rodada ativa */}
-          <div className='flex flex-col gap-2'>
+          <div
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            className='flex flex-col gap-2'
+          >
             {currentMatches.map((match) => (
               <MatchInput
                 key={match.id}

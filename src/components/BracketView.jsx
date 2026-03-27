@@ -1,7 +1,7 @@
 import { useState, forwardRef } from 'react';
+import { useSwipe } from '../hooks/useSwipe';
 import { ROUNDS } from '../logic/bracket';
 import { getTeamById } from '../data/teams';
-import FlagImage from './FlagImage';
 import MatchInput from './MatchInput';
 
 // =============================================================
@@ -223,6 +223,8 @@ export default function BracketView({ bracket, onPick, knockoutScores }) {
     setInputPage(0);
   };
 
+  const { handleTouchStart, handleTouchEnd } = useSwipe(handleNext, handlePrev);
+
   return (
     <div className='flex flex-col gap-5'>
       {/* INPUTS */}
@@ -270,6 +272,8 @@ export default function BracketView({ bracket, onPick, knockoutScores }) {
 
         {/* Jogos */}
         <div
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           className={`grid gap-3 ${currentPhaseMatches.length <= 2 ? 'grid-cols-1 mx-auto max-w-140' : 'grid-cols-1 md:grid-cols-2'}`}
         >
           {pageMatches.map((match) => {
