@@ -8,23 +8,25 @@ import MatchInput from './MatchInput';
 // TEAMCIRCLE — bolinha de um time
 // =============================================================
 const TeamCircle = forwardRef(
-  ({ teamId, isWinner, size = 'min(5vw, 5vh)' }, ref) => {
+  ({ teamId, isWinner, isLoser, size = 'min(5vw, 5vh)' }, ref) => {
     const team = getTeamById(teamId);
     return (
       <div
         ref={ref}
         style={{ width: size, height: size }}
         className={`
-        rounded-full flex items-center justify-center
-        transition-all duration-300 shrink-0
-        ${
-          teamId
-            ? isWinner
-              ? 'bg-yellow-400/20 border-2 border-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.6)]'
-              : 'bg-white/10 border border-white/20'
-            : 'bg-white/5 border border-white/10'
-        }
-      `}
+          rounded-full flex items-center justify-center
+          transition-all duration-300 shrink-0
+          ${
+            teamId
+              ? isWinner
+                ? 'bg-yellow-400/20 border-2 border-yellow-400 shadow-[0_0_8px_rgba(250,204,21,0.6)]'
+                : isLoser
+                  ? 'bg-white/5 border border-white/10 opacity-25' // ← perdedor: apagado
+                  : 'bg-white/10 border border-white/20' // ← ainda sem resultado
+              : 'bg-white/5 border border-white/10'
+          }
+        `}
       >
         {teamId &&
           (team?.iso ? (
@@ -71,11 +73,13 @@ const BracketSide = ({ rounds, reversed = false }) => {
             key: `${key}_${i}_A`,
             teamId: match?.teamA ?? null,
             isWinner: match?.winner === match?.teamA && !!match?.winner,
+            isLoser: !!match?.winner && match?.winner !== match?.teamA, // ← ADICIONA
           },
           {
             key: `${key}_${i}_B`,
             teamId: match?.teamB ?? null,
             isWinner: match?.winner === match?.teamB && !!match?.winner,
+            isLoser: !!match?.winner && match?.winner !== match?.teamB, // ← ADICIONA
           },
         ]);
 
@@ -100,6 +104,7 @@ const BracketSide = ({ rounds, reversed = false }) => {
                   key={c.key}
                   teamId={c.teamId}
                   isWinner={c.isWinner}
+                  isLoser={c.isLoser} // ← ADICIONA
                   size={key === 'r32' ? 'min(5vw, 5vh)' : 'min(7vw, 7vh)'}
                 />
               ))}
@@ -129,6 +134,7 @@ const GameCell = ({ match, label, labelColor, winner, emoji }) => {
           <TeamCircle
             teamId={match?.teamA ?? null}
             isWinner={match?.winner === match?.teamA && !!match?.winner}
+            isLoser={!!match?.winner && match?.winner !== match?.teamA} // ← ADICIONA
           />
         </div>
         <span className='text-white/30 text-[7px] shrink-0'>×</span>
@@ -136,6 +142,7 @@ const GameCell = ({ match, label, labelColor, winner, emoji }) => {
           <TeamCircle
             teamId={match?.teamB ?? null}
             isWinner={match?.winner === match?.teamB && !!match?.winner}
+            isLoser={!!match?.winner && match?.winner !== match?.teamB} // ← ADICIONA
           />
         </div>
       </div>
